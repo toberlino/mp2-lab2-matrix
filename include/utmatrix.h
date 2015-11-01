@@ -80,6 +80,7 @@ template <class ValType> //конструктор копирования
 TVector<ValType>::TVector(const TVector<ValType> &v)
 {   
 	Size=v.Size;
+	StartIndex=v.StartIndex;
 	pVector=new ValType[Size];
 	for (int i=StartIndex; i<Size+StartIndex; i++)
 		pVector[i]=v.pVector[i];
@@ -122,25 +123,23 @@ bool TVector<ValType>::operator==(const TVector &v) const
 
 template <class ValType> // сравнение
 bool TVector<ValType>::operator!=(const TVector &v) const
-{
-	bool res=1;
+ {
  	if (Size!=v.Size)
- 		return res;
+ 		return true;
  	else if (StartIndex!=v.StartIndex)
- 		return res;
+ 		return true;
  	else
  	{
  		for (int i=StartIndex; i<StartIndex+Size;i++)
  			if (pVector[i]!=v.pVector[i])
  			{
- 				res=1;
+ 				return true;
  				break;
  			}
  			else
- 				res=0;
+ 				return false;
  	}
- 	return res;
-} /*-------------------------------------------------------------------------*/
+ } /*-------------------------------------------------------------------------*/
 
 template <class ValType> // присваивание
 TVector<ValType>& TVector<ValType>::operator=(const TVector &v)
