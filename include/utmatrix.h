@@ -1,15 +1,9 @@
-﻿// ННГУ, ВМК, Курс "Методы программирования-2", С++, ООП
-//
-// utmatrix.h - Copyright (c) Гергель В.П. 07.05.2001
-//   Переработано для Microsoft Visual Studio 2008 Сысоевым А.В. (21.04.2015)
-//
-// Верхнетреугольная матрица - реализация на основе шаблона вектора
+﻿// Верхнетреугольная матрица - реализация на основе шаблона вектора
 
-#ifndef __TMATRIX_H__
-#define __TMATRIX_H__
+#ifndef __UTMATRIX_H__
+#define __UTMATRIX_H__
 
 #include <iostream>
-
 using namespace std;
 
 const int MAX_VECTOR_SIZE = 100000000;
@@ -45,12 +39,14 @@ public:
   ValType  operator*(const TVector &v);     // скалярное произведение
 
   // ввод-вывод
+  template <class ValType>
   friend istream& operator>>(istream &in, TVector &v)
   {
     for (int i = 0; i < v.Size; i++)
       in >> v.pVector[i];
     return in;
   }
+  template <class ValType>
   friend ostream& operator<<(ostream &out, const TVector &v)
   {
     for (int i = 0; i < v.Size; i++)
@@ -247,16 +243,18 @@ public:
   TMatrix  operator- (const TMatrix &mt);        // вычитание
 
   // ввод / вывод
+  template <class ValType>
   friend istream& operator>>(istream &in, TMatrix &mt)
   {
     for (int i = 0; i < mt.Size; i++)
       in >> mt.pVector[i];
     return in;
   }
+template <class ValType>
   friend ostream & operator<<( ostream &out, const TMatrix &mt)
   {
-    for (int i = 0; i < mt.Size; i++)
-      out << mt.pVector[i] << endl;
+    for (int i = mt.GetStartIndex(); i < mt.Size; i++)
+      out << mt[i] << endl;
     return out;
   }
 };
@@ -309,7 +307,7 @@ bool TMatrix<ValType>::operator==(const TMatrix<ValType> &mt) const
 template <class ValType> // сравнение
 bool TMatrix<ValType>::operator!=(const TMatrix<ValType> &mt) const
 {
-	if (Size!=mt.Size)
+	/*if (Size!=mt.Size)
 		return true;
 	else if (StartIndex!=mt.StartIndex)
 		return true;
@@ -323,7 +321,8 @@ bool TMatrix<ValType>::operator!=(const TMatrix<ValType> &mt) const
 			}
 			else
 				return false;
-}
+}*/
+	return !(*this==mt);
 }/*-------------------------------------------------------------------------*/
 
 template <class ValType> // присваивание
