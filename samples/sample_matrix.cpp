@@ -12,7 +12,7 @@
 
 void main()
 {
-  TMatrix<int> a(5), b(5), c(5);
+  TMatrix<int> a(5), b(5), c(5),d(5);
   int i, j;
   clock_t start,finish;
   double time;

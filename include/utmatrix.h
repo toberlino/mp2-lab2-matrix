@@ -21,9 +21,9 @@ public:
   TVector(int s = 10, int si = 0);
   TVector(const TVector &v);                // конструктор копирования
   ~TVector();
-  int GetSize()      { return Size;       } // размер вектора
-  int GetStartIndex(){ return StartIndex; } // индекс первого элемента
-  ValType& operator[](int pos);             // доступ
+  int GetSize() const      { return Size;       } // размер вектора
+  int GetStartIndex() const { return StartIndex; } // индекс первого элемента
+  ValType& operator[](int pos) const;             // доступ
   bool operator==(const TVector &v) const;  // сравнение
   bool operator!=(const TVector &v) const;  // сравнение
   TVector& operator=(const TVector &v);     // присваивание
@@ -39,14 +39,14 @@ public:
   ValType  operator*(const TVector &v);     // скалярное произведение
 
   // ввод-вывод
-  template <class ValType>
+ // template <class ValType>
   friend istream& operator>>(istream &in, TVector &v)
   {
     for (int i = 0; i < v.Size; i++)
       in >> v.pVector[i];
     return in;
   }
-  template <class ValType>
+  //template <class ValType>
   friend ostream& operator<<(ostream &out, const TVector &v)
   {
     for (int i = 0; i < v.Size; i++)
@@ -90,7 +90,7 @@ TVector<ValType>::~TVector()
 } /*-------------------------------------------------------------------------*/
 
 template <class ValType> // доступ
-ValType& TVector<ValType>::operator[](int pos)
+ValType& TVector<ValType>::operator[](int pos) const
 {
 	if((pos<StartIndex)||(pos>=Size+StartIndex))
 		throw "	Incorrect index";
@@ -241,16 +241,18 @@ public:
   TMatrix& operator= (const TMatrix &mt);        // присваивание
   TMatrix  operator+ (const TMatrix &mt);        // сложение
   TMatrix  operator- (const TMatrix &mt);        // вычитание
-
+  //TMatrix  operator* (const TMatrix &mt);        // умножение
+  
+  
   // ввод / вывод
-  template <class ValType>
+  //template <class ValType>
   friend istream& operator>>(istream &in, TMatrix &mt)
   {
     for (int i = 0; i < mt.Size; i++)
       in >> mt.pVector[i];
     return in;
   }
-template <class ValType>
+//template <class ValType>
   friend ostream & operator<<( ostream &out, const TMatrix &mt)
   {
     for (int i = mt.GetStartIndex(); i < mt.Size; i++)
@@ -373,5 +375,19 @@ TMatrix<ValType> TMatrix<ValType>::operator-(const TMatrix<ValType> &mt)
 		return res;
 	}
 } 
+
+/*template <class ValType> // умножение
+TMatrix<ValType> TMatrix<ValType>::operator* (const TMatrix<ValType> &mt) {
+	if (Size != mt.GetSize()) {
+		throw invalid_argument("Матрицы разного размера -");
+	}
+	TMatrix<ValType> result(Size);
+	for (int i = 0; i < this->GetSize(); i++)
+		for (int j = i; j < this->GetSize(); j++)
+			for (int k = 0; k <= j; k++)
+				result[i][j] = result[i][j] + ((*this)[i][k])*(mt[k][j]);
+	return result;
+} */
+
 
 #endif
