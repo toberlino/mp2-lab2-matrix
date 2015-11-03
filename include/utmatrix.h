@@ -135,6 +135,7 @@ bool TVector<ValType>::operator!=(const TVector &v) const
  			else
  				return false;
  	}
+	return true;
  } /*-------------------------------------------------------------------------*/
 
 template <class ValType> // присваивание
@@ -241,11 +242,11 @@ public:
   TMatrix& operator= (const TMatrix &mt);        // присваивание
   TMatrix  operator+ (const TMatrix &mt);        // сложение
   TMatrix  operator- (const TMatrix &mt);        // вычитание
-  //TMatrix  operator* (const TMatrix &mt);        // умножение
   
   
-  // ввод / вывод
-  //template <class ValType>
+  
+
+//template <class ValType>
   friend istream& operator>>(istream &in, TMatrix &mt)
   {
     for (int i = 0; i < mt.Size; i++)
@@ -303,28 +304,27 @@ bool TMatrix<ValType>::operator==(const TMatrix<ValType> &mt) const
 				break;
 			}
 	}
-	return true;
 } /*-------------------------------------------------------------------------*/
 
 template <class ValType> // сравнение
 bool TMatrix<ValType>::operator!=(const TMatrix<ValType> &mt) const
 {
-	/*if (Size!=mt.Size)
+	if (Size!=mt.Size)
 		return true;
 	else if (StartIndex!=mt.StartIndex)
 		return true;
 	else
 	{
 		for (int i=StartIndex; i<StartIndex+Size;i++)
-			if (pVector[i]!=mt.pVector[i])
+			if (pVector[i]==mt.pVector[i])
 			{
-				return true;
+				return false;
 				break;
 			}
 			else
-				return false;
-}*/
-	return !(*this==mt);
+				return true;
+}
+	
 }/*-------------------------------------------------------------------------*/
 
 template <class ValType> // присваивание
@@ -376,18 +376,6 @@ TMatrix<ValType> TMatrix<ValType>::operator-(const TMatrix<ValType> &mt)
 	}
 } 
 
-/*template <class ValType> // умножение
-TMatrix<ValType> TMatrix<ValType>::operator* (const TMatrix<ValType> &mt) {
-	if (Size != mt.GetSize()) {
-		throw invalid_argument("Матрицы разного размера -");
-	}
-	TMatrix<ValType> result(Size);
-	for (int i = 0; i < this->GetSize(); i++)
-		for (int j = i; j < this->GetSize(); j++)
-			for (int k = 0; k <= j; k++)
-				result[i][j] = result[i][j] + ((*this)[i][k])*(mt[k][j]);
-	return result;
-} */
 
 
 #endif
