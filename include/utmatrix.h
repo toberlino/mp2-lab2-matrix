@@ -39,21 +39,28 @@ public:
   ValType  operator*(const TVector &v);     // скалярное произведение
 
   // ввод-вывод
- // template <class ValType>
-  friend istream& operator>>(istream &in, TVector &v)
+template <class ValType>
+  friend istream& operator>>(istream &in, TVector<ValType> &v);
+  
+  template <class ValType>
+  friend ostream& operator<<(ostream &out, const TVector<ValType> &v);
+};
+
+template <class ValType>
+  istream& operator>>(istream &in, TVector<ValType> &v)
   {
     for (int i = 0; i < v.Size; i++)
       in >> v.pVector[i];
     return in;
   }
-  //template <class ValType>
-  friend ostream& operator<<(ostream &out, const TVector &v)
+  
+  template <class ValType>
+  ostream& operator<<(ostream &out, const TVector<ValType> &v)
   {
     for (int i = 0; i < v.Size; i++)
       out << v.pVector[i] << ' ';
     return out;
   }
-};
 
 template <class ValType>
 TVector<ValType>::TVector(int s, int si)
@@ -246,15 +253,16 @@ public:
   
   
 
-//template <class ValType>
-  friend istream& operator>>(istream &in, TMatrix &mt)
+  template <class ValType>
+  friend istream& operator>>(istream &in, TMatrix<ValType> &mt)
   {
     for (int i = 0; i < mt.Size; i++)
       in >> mt.pVector[i];
     return in;
   }
-//template <class ValType>
-  friend ostream & operator<<( ostream &out, const TMatrix &mt)
+  
+  template <class ValType>
+  friend ostream & operator<<( ostream &out, const TMatrix<ValType> &mt)
   {
     for (int i = mt.GetStartIndex(); i < mt.Size; i++)
       out << mt[i] << endl;

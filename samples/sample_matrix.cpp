@@ -12,7 +12,7 @@
 
 void main()
 {
-  TMatrix<int> a(5), b(5), c(5),d(5);
+  TMatrix<int> a(50), b(50), c(50);
   int i, j;
   clock_t start,finish;
   double time;
@@ -20,8 +20,8 @@ void main()
   setlocale(LC_ALL, "Russian");
   cout << "Тестирование программ поддержки представления треугольных матриц"
     << endl;
-  for (i = 0; i < 5; i++)
-    for (j = 0; j < 5-i; j++ )
+  for (i = 0; i < 50; i++)
+    for (j = 0; j < 50-i; j++ )
     {
       a[i][j] =  i * 10 + j;
       b[i][j] = (i * 10 + j) * 100;
